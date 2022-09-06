@@ -1,28 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:state_notifier/state_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-final gameProvider = StateNotifierProvider((_) => Game());
+import '../provider/game.dart';
 
-class Game extends StateNotifier<int> {
-  Game() : super(0);
-  List<TextEditingController> controllers;
-
-  List<String> _positions = [
-    "村人",
-    "村人",
-    "人狼",
-    "人狼",
-    "占い師",
-    "てるてる",
-  ];
-  List<String> get positions => _positions;
-
-  void shufflePositoins() {
-    _positions.shuffle();
+class GameApp extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('役職')),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                getMasterText(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: createButton(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  void increment() {
-    state++;
+  Widget createButton() {
+    Widget button;
+
+    button = MaterialButton(
+      onPressed: () => {},
+      child: Text('イエス'),
+      color: Colors.blueAccent,
+      textColor: Colors.white,
+    );
+
+    return button;
+  }
+
+  String getMasterText() {
+    String text;
+
+    text = "ゲームスタート！";
+
+    return text;
   }
 }
