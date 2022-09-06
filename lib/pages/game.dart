@@ -7,6 +7,7 @@ import '../provider/game.dart';
 class GameApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    print(context);
     return Scaffold(
       appBar: AppBar(title: Text('役職')),
       body: Center(

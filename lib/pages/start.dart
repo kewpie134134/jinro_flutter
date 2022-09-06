@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'game.dart';
 
 class StartApp extends HookWidget {
   final List<TextEditingController> controllers = [
@@ -20,13 +21,22 @@ class StartApp extends HookWidget {
               children: createPlayerWidgets(),
             ),
             MaterialButton(
-              onPressed: () => {},
+              onPressed: () => {start(context)},
               child: Text('スタート！'),
               color: Colors.blueAccent,
               textColor: Colors.white,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void start(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GameApp(),
       ),
     );
   }
