@@ -7,6 +7,9 @@ import '../provider/game.dart';
 class GameApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final provider = useProvider(gameProvider);
+    useProvider(gameProvider.state);
+
     return Scaffold(
       appBar: AppBar(title: Text('役職')),
       body: Center(
@@ -15,12 +18,12 @@ class GameApp extends HookWidget {
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                getMasterText(),
+                getMasterText(provider),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(20),
-              child: createButton(),
+              child: createButton(provider),
             ),
           ],
         ),
@@ -28,8 +31,9 @@ class GameApp extends HookWidget {
     );
   }
 
-  Widget createButton() {
+  Widget createButton(Game provider) {
     Widget button;
+    int count = provider.state;
 
     button = MaterialButton(
       onPressed: () => {},
@@ -38,14 +42,35 @@ class GameApp extends HookWidget {
       textColor: Colors.white,
     );
 
-    return button;
+    if (count / 2 >= provider.controllers.length) {
+      button = Container();
+      return button;
+    } else {
+      button = MaterialButton(
+        onPressed: () => {provider.increment()},
+        child: Text('イエス'),
+        color: Colors.blueAccent,
+        textColor: Colors.white,
+      );
+      return button;
+    }
   }
 
-  String getMasterText() {
-    String text;
+  String getMasterText(Game provider) {
+    String text = "";
+    int count = provider.state;
 
-    text = "ゲームスタート！";
-
-    return text;
+    if (count / 2 >= provider.controllers.length) {
+      text = "ゲームスタート！";
+      return text;
+    } else if (count % 2 == 0) {
+      int num = (count / 2).floor();
+      text = "あなたは" + provider.controllers[num].text + "ですか？";
+      return text;
+    } else {
+      int num = (count / 2).floor();
+      text = "あなたの役職は" + provider.positions[num] + "です";
+      return text;
+    }
   }
 }
