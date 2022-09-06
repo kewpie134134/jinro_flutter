@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class StartApp extends HookWidget {
+  final List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,6 +16,9 @@ class StartApp extends HookWidget {
       body: Center(
         child: Column(
           children: [
+            Column(
+              children: createPlayerWidgets(),
+            ),
             MaterialButton(
               onPressed: () => {},
               child: Text('スタート！'),
@@ -19,5 +29,23 @@ class StartApp extends HookWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> createPlayerWidgets() {
+    List<Widget> players = [];
+    for (int i = 0; i < 4; i++) {
+      players.add(
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: TextFormField(
+            controller: controllers[i],
+            decoration: const InputDecoration(
+              hintText: '参加者の名前',
+            ),
+          ),
+        ),
+      );
+    }
+    return players;
   }
 }
