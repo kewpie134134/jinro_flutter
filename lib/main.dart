@@ -17,7 +17,8 @@ class MyApp extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StartApp()
+      debugShowCheckedModeBanner: false,
+      home: StartApp(),
     );
   }
 }
